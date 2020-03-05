@@ -1,9 +1,13 @@
 var btn = document.querySelector("#btn");
 var time = document.querySelector(".time");
-var remaining = 10;
+var jumbo= document.querySelector(".jumbotron");
+var main = document.getElementById("main");
+var questionText = document.getElementById("questionText");
+var showAnswers = document.getElementById("showAnswers");
 var startGame = btn;
+var remaining = 10;
 
-var questions = [
+var myQuestions = [
     {
         question: "What state was I born in?",
         answers: {
@@ -35,10 +39,12 @@ var questions = [
         rightAnswer: "a"
     }
 ];
+var arrAnswers = Object.values(myQuestions[0].answers);
 
-
+main.style.display = "none";
 
 startGame.addEventListener("click", setTime);
+startGame.addEventListener("click", clear);
 
 function setTime() {
     var interval = setInterval(function() {
@@ -50,3 +56,29 @@ function setTime() {
         }
     }, 1000);
 };
+
+function clear() {
+    jumbo;
+    main;
+    jumbo.parentNode.replaceChild(main, jumbo);
+    main.style.display = "block";
+};
+
+function displayQuestion() {
+
+    var questionBlock = document.createElement("h2");
+
+    for (var i = 0; i < myQuestions.length; i++) {
+        questionBlock.innerHTML= myQuestions[i].question;
+        questionText.appendChild(questionBlock);
+    };
+
+    for (var i = 0; i < 4; i++) {
+        var buttn = document.createElement("button");
+        buttn.innerText = arrAnswers[i];
+        buttn.setAttribute("data-index", [i]);
+        showAnswers.appendChild(buttn);
+    }
+};
+displayQuestion();
+
