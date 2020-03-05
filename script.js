@@ -4,44 +4,49 @@ var jumbo= document.querySelector(".jumbotron");
 var main = document.getElementById("main");
 var questionText = document.getElementById("questionText");
 var showAnswers = document.getElementById("showAnswers");
+var endGame = document.getElementById("endGame");
+var points = document.getElementById("points");
+var input = document.getElementById("input");
+var currentQuestion = 0;
 var startGame = btn;
-var remaining = 10;
+var remaining = 60;
+var score = 0;
 
 var myQuestions = [
     {
         question: "What state was I born in?",
-        answers: {
-            a: "Connecticut",
-            b: "New York",
-            c: "Pennsylvania",
-            d: "Rhode Island" 
-        },
-        rightAnswer: "b"
+        answers: [
+             "A: Connecticut",
+             "B: New York",
+             "C: Pennsylvania",
+             "D: Rhode Island" 
+        ],
+        rightAnswer: "B: New York"
     }, 
     {
         question: "What is the longest I have stayed in a job?",
-        answers: {
-            a: "4 years",
-            b: "7 years",
-            c: "1 year",
-            d: "2 years"
-        },
-        rightAnswer: "d"
+        answers: [
+             "A: 4 years",
+             "B: 7 years",
+             "C: 1 year",
+             "D: 2 years"
+        ],
+        rightAnswer: "D: 2 years"
     },
     {
-        question: "What is favorite hobby?",
-        answers: {
-            a: "Video Games",
-            b: "Watching T.V",
-            c: "Skateboarding",
-            d: "Driving"
-        },
-        rightAnswer: "a"
+        question: "What is my favorite hobby?",
+        answers: [
+             "A: Video Games",
+             "B: Watching T.V",
+             "C: Skateboarding",
+             "D: Driving"
+        ],
+        rightAnswer: "A: Video Games"
     }
 ];
-var arrAnswers = Object.values(myQuestions[0].answers);
 
 main.style.display = "none";
+endGame.style.display = "none";
 
 startGame.addEventListener("click", setTime);
 startGame.addEventListener("click", clear);
@@ -66,19 +71,56 @@ function clear() {
 
 function displayQuestion() {
 
-    var questionBlock = document.createElement("h2");
+    
+    questionText.innerHTML = myQuestions[currentQuestion].question;
 
-    for (var i = 0; i < myQuestions.length; i++) {
-        questionBlock.innerHTML= myQuestions[i].question;
-        questionText.appendChild(questionBlock);
-    };
-
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < myQuestions[currentQuestion].answers.length; i++) {
         var buttn = document.createElement("button");
-        buttn.innerText = arrAnswers[i];
-        buttn.setAttribute("data-index", [i]);
+        buttn.innerText = myQuestions[currentQuestion].answers[i];
         showAnswers.appendChild(buttn);
+        buttn.addEventListener("click", answerChoice);
     }
+
+    
 };
 displayQuestion();
 
+function answerChoice(event) {
+    
+    var choice = event.target.textContent;
+    var rightA = myQuestions[currentQuestion].rightAnswer;
+    
+    if (choice === rightA) {
+        score++;
+        alert("Correct! " + score + " point(s)");
+        remaining += 5;
+    } else {
+        alert("Wrong");
+        remaining -= 5;
+    };
+
+    currentQuestion++;
+    questionText.innerHTML = "";
+    showAnswers.innerHTML = "";
+
+    if (currentQuestion > 2) {
+        gameOver()
+    } else {
+        displayQuestion();
+    }
+
+    
+};
+
+function gameOver() {
+    main.style.display = "none";
+    endGame.style.display = "block";
+    points.textContent = "You got " + score + " point(s)!";
+    var form = document.createElement("input");
+    form.setAttribute("type", "text");
+    form.setAttribute("id", "form");
+    input.appendChild(form);
+    var submit = document.createElement("button");
+    submit.innerText = "Submit";
+    input.appendChild(submit);
+}
