@@ -1,6 +1,6 @@
 var btn = document.querySelector("#btn");
 var time = document.querySelector(".time");
-var jumbo= document.querySelector(".jumbotron");
+var jumbo = document.querySelector(".jumbotron");
 var main = document.getElementById("main");
 var questionText = document.getElementById("questionText");
 var showAnswers = document.getElementById("showAnswers");
@@ -12,38 +12,40 @@ var startGame = btn;
 var remaining = 60;
 var score = 0;
 
+// A list of questions
 var myQuestions = [
     {
         question: "What state was I born in?",
         answers: [
-             "A: Connecticut",
-             "B: New York",
-             "C: Pennsylvania",
-             "D: Rhode Island" 
+            "A: Connecticut",
+            "B: New York",
+            "C: Pennsylvania",
+            "D: Rhode Island"
         ],
         rightAnswer: "B: New York"
-    }, 
+    },
     {
         question: "What is the longest I have stayed in a job?",
         answers: [
-             "A: 4 years",
-             "B: 7 years",
-             "C: 1 year",
-             "D: 2 years"
+            "A: 4 years",
+            "B: 7 years",
+            "C: 1 year",
+            "D: 2 years"
         ],
         rightAnswer: "D: 2 years"
     },
     {
         question: "What is my favorite hobby?",
         answers: [
-             "A: Video Games",
-             "B: Watching T.V",
-             "C: Skateboarding",
-             "D: Driving"
+            "A: Video Games",
+            "B: Watching T.V",
+            "C: Skateboarding",
+            "D: Driving"
         ],
         rightAnswer: "A: Video Games"
     }
 ];
+
 
 main.style.display = "none";
 endGame.style.display = "none";
@@ -51,17 +53,19 @@ endGame.style.display = "none";
 startGame.addEventListener("click", setTime);
 startGame.addEventListener("click", clear);
 
+// Creates a timer
 function setTime() {
-    var interval = setInterval(function() {
+    var interval = setInterval(function () {
         remaining--;
         time.textContent = "Timer: " + remaining + " secs";
 
-        if(remaining === 0) {
+        if (remaining === 0) {
             clearInterval(interval);
         }
     }, 1000);
 };
 
+// Replaces one div with another and makes it visible
 function clear() {
     jumbo;
     main;
@@ -69,9 +73,10 @@ function clear() {
     main.style.display = "block";
 };
 
+// This displays the question and creates buttons for the answers
 function displayQuestion() {
 
-    
+
     questionText.innerHTML = myQuestions[currentQuestion].question;
 
     for (var i = 0; i < myQuestions[currentQuestion].answers.length; i++) {
@@ -81,15 +86,16 @@ function displayQuestion() {
         buttn.addEventListener("click", answerChoice);
     }
 
-    
+
 };
 displayQuestion();
 
+// Relates the user's choice to the correct answer
 function answerChoice(event) {
-    
+
     var choice = event.target.textContent;
     var rightA = myQuestions[currentQuestion].rightAnswer;
-    
+
     if (choice === rightA) {
         score++;
         alert("Correct! " + score + " point(s)");
@@ -109,17 +115,21 @@ function answerChoice(event) {
         displayQuestion();
     }
 
-    
+
 };
 
+// Switches to the last div and sums up all points
 function gameOver() {
     main.style.display = "none";
     endGame.style.display = "block";
+
     points.textContent = "You got " + score + " point(s)!";
+
     var form = document.createElement("input");
     form.setAttribute("type", "text");
     form.setAttribute("id", "form");
     input.appendChild(form);
+
     var submit = document.createElement("button");
     submit.innerText = "Submit";
     input.appendChild(submit);
