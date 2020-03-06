@@ -1,8 +1,30 @@
 body {
     text-align: center;
+    font-weight: bold;
+    margin-top: 15%;
+    background-color: black;
 }
 
 section {
     background-color: lightblue;
     padding: 10%;
+}
+
+.jumbotron {
+    background-color: lightblue;
+}
+
+.jumbotron, #main, #endGame {
+    border-style: dashed;
+    border-width: 5px;
+    border-color: black;
+}
+
+.time {
+    position: fixed;
+    top: 0;
+    right: 0;
+    text-align: right;
+    font-weight: bold;
+    color: white;
 }
