@@ -120,6 +120,7 @@ function answerChoice(event) {
 
 // Switches to the last div and sums up all points
 function gameOver() {
+    time = "";
     main.style.display = "none";
     endGame.style.display = "block";
 
