@@ -134,4 +134,13 @@ function gameOver() {
     var submit = document.createElement("button");
     submit.innerText = "Submit";
     input.appendChild(submit);
+
+    submit.addEventListener("click", function() {
+        console.log(this.id);
+      
+        inputVal = form.value;
+        console.log(inputVal);
+        
+        localStorage.setItem("Players", inputVal);
+    })
 }
