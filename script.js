@@ -134,7 +134,9 @@ function gameOver() {
     var submit = document.createElement("button");
     submit.innerText = "Submit";
     input.appendChild(submit);
+}
 
+function storeHistory() {
     submit.addEventListener("click", function() {
         console.log(this.id);
       
