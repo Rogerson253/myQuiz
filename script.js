@@ -12,6 +12,25 @@ var startGame = btn;
 var remaining = 60;
 var score = 0;
 
+// Grabs items from local storage and puts them on the page
+function playerHistory() {
+    var historyDiv = document.createElement("div");
+    var text = document.createTextNode("History");
+
+   var playerName = localStorage.getItem("Players");
+   console.log(playerName);
+
+   var playerScore = localStorage.getItem("Score");
+   console.log(playerScore);
+
+   var playerDiv = document.createElement("div");
+   playerDiv.append(playerName, playerScore);
+
+    historyDiv.appendChild(text);
+    historyDiv.append(playerDiv);
+    endGame.appendChild(historyDiv);
+}
+
 // A list of questions
 var myQuestions = [
     {
@@ -136,14 +155,12 @@ function gameOver() {
     input.appendChild(submit);
 
     submit.addEventListener("click", function () {
-        console.log(this.id);
-
         inputVal = form.value;
-        console.log(inputVal);
 
         localStorage.setItem("Players", inputVal);
-    })
-
-
+        localStorage.setItem("Score", score);
+        
+        playerHistory();
+    });
 }
 
