@@ -14,9 +14,7 @@ var score = 0;
 
 // Grabs items from local storage and puts them on the page
 function playerHistory() {
-    var historyDiv = document.createElement("div");
-    var text = document.createTextNode("History");
-
+   
    var playerName = localStorage.getItem("Players");
    console.log(playerName);
 
@@ -26,9 +24,7 @@ function playerHistory() {
    var playerDiv = document.createElement("div");
    playerDiv.append(playerName, playerScore);
 
-    historyDiv.appendChild(text);
-    historyDiv.append(playerDiv);
-    endGame.appendChild(historyDiv);
+    endGame.append(playerDiv);
 }
 
 // A list of questions
@@ -153,6 +149,11 @@ function gameOver() {
     var submit = document.createElement("button");
     submit.innerText = "Submit";
     input.appendChild(submit);
+
+    var historyDiv = document.createElement("div");
+    var text = document.createTextNode("History");
+    historyDiv.appendChild(text);
+    endGame.appendChild(historyDiv);
 
     submit.addEventListener("click", function () {
         inputVal = form.value;
